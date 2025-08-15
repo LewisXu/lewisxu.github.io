@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protobot - 开源人形机器人</title>
-    <meta name="description" content="Protobot开源人形机器人技术分享 - 深圳源行机器人科技有限公司">
+    <title>AIN - 开源人形双足机器人</title>
+    <meta name="description" content="AIN开源人形双足机器人技术分享 - 深圳源行机器人科技有限公司">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%234CAF50'/><circle cx='9' cy='10' r='2' fill='white'/><circle cx='15' cy='10' r='2' fill='white'/><path d='M8 15 Q12 18 16 15' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
     <style>
         * {
@@ -23,8 +23,7 @@
         .header {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: white;
-            padding: 60px 0;
-            text-align: center;
+            padding: 40px 0 50px;
             position: relative;
             overflow: hidden;
         }
@@ -43,18 +42,103 @@
         .header-content {
             position: relative;
             z-index: 1;
+            width: 100%;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
         }
         
-        .robot-icon {
-            display: inline-block;
-            font-size: 60px;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .header-info {
+            text-align: left;
+        }
+        
+        .header-info h1 {
+            font-size: 48px;
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+        
+        .header-info .subtitle {
+            font-size: 22px;
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+        
+        .header-info .company {
+            font-size: 16px;
+            opacity: 0.75;
+        }
+        
+        .robot-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .robot-logo::before {
+            content: 'AIN';
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 1px;
+        }
+        
+        .robot-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        
+        .company-mission {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #4CAF50;
+            padding: 30px 60px;
+            margin: 40px 0 0;
+            width: 100%;
+        }
+        
+        .mission-text {
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            max-width: none;
+        }
+        
+        .mission-highlight {
+            color: #4CAF50;
+            font-weight: 500;
         }
         
         .container {
@@ -196,6 +280,14 @@
                 padding: 0 100px;
             }
             
+            .header-content {
+                padding: 0 100px;
+            }
+            
+            .company-mission {
+                padding: 30px 100px;
+            }
+            
             .main-content {
                 padding: 80px 120px;
             }
@@ -204,6 +296,14 @@
         @media (min-width: 1920px) {
             .container {
                 padding: 0 150px;
+            }
+            
+            .header-content {
+                padding: 0 150px;
+            }
+            
+            .company-mission {
+                padding: 30px 150px;
             }
             
             .main-content {
@@ -228,6 +328,14 @@
                 padding: 0 40px;
             }
             
+            .header-content {
+                padding: 0 40px;
+            }
+            
+            .company-mission {
+                padding: 25px 40px;
+            }
+            
             .main-content {
                 padding: 50px 60px;
             }
@@ -240,6 +348,27 @@
         @media (max-width: 768px) {
             .container {
                 padding: 0 20px;
+            }
+            
+            .header-content {
+                padding: 0 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .header-left {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .header-right {
+                display: none;
+            }
+            
+            .company-mission {
+                padding: 20px;
             }
             
             .main-content {
@@ -263,8 +392,17 @@
                 font-size: 14px;
             }
             
-            .robot-icon {
-                font-size: 48px;
+            .robot-logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .robot-logo::before {
+                font-size: 20px;
+            }
+            
+            .mission-text {
+                font-size: 15px;
             }
             
             .article-content {
@@ -296,15 +434,102 @@
             margin: 0 4px;
             border: 1px solid rgba(76, 175, 80, 0.3);
         }
+
+        .header-right {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .header-nav {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 300;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .header-nav a:hover {
+            color: #4CAF50;
+        }
+        
+        .header-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4CAF50;
+            transition: width 0.3s ease;
+        }
+        
+        .header-nav a:hover::after {
+            width: 100%;
+        }
+        
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .github-btn:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-content">
-            <div class="robot-icon">🤖</div>
-            <h1 style="font-size: 48px; margin-bottom: 10px; letter-spacing: 2px;">Protobot</h1>
-            <p style="font-size: 20px; opacity: 0.9;">开源人形机器人</p>
-            <p style="font-size: 16px; opacity: 0.7; margin-top: 10px;">深圳源行机器人科技有限公司</p>
+            <div class="header-left">
+                <div class="robot-logo"></div>
+                <div class="header-info">
+                    <h1>AIN</h1>
+                    <p class="subtitle">开源人形双足机器人</p>
+                    <p class="company">深圳源行机器人科技有限公司</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <nav class="header-nav">
+                    <a href="#tech">技术架构</a>
+                    <a href="#progress">开发进展</a>
+                    <a href="#join">加入我们</a>
+                </nav>
+                <a href="https://github.com/AIN-opensource" class="github-btn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+        <div class="company-mission">
+            <p class="mission-text">
+                我们相信<span class="mission-highlight">技术平权</span>是推动社会进步的关键。源行机器人致力于<span class="mission-highlight">促进前沿技术的应用和普及</span>，
+                通过开源协作打破技术壁垒，让人形机器人技术不再是少数人的专利。我们的使命是构建一个开放、包容的技术生态，
+                让每个有梦想的开发者都能参与到机器人技术的创新中来，共同创造人机和谐共存的未来。
+            </p>
         </div>
     </header>
 
@@ -312,86 +537,77 @@
         <main class="main-content fade-in">
             <article>
                 <div class="article-header">
-                    <h2 class="article-title">Protobot开源人形机器人：让机器人技术触手可及</h2>
+                    <h2 class="article-title">AIN开源人形双足机器人：让机器人技术触手可及</h2>
                     <div class="article-meta">
-                        <span>📅 2024年01月15日</span>
+                        <span>📅 2025年08月15日</span>
                         <span>👤 Lewis</span>
-                        <span>🏢 深圳源行机器人科技</span>
+                        <span>🏢 深圳源行机器人科技有限公司</span>
                         <span>🔧 技术分享</span>
                     </div>
                 </div>
                 <div class="article-content">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='400' viewBox='0 0 300 400'><rect width='300' height='400' fill='%23f5f5f5'/><g transform='translate(150,200)'><rect x='-30' y='-60' width='60' height='80' fill='%234CAF50' rx='10'/><rect x='-25' y='-100' width='50' height='50' fill='%2345a049' rx='15'/><circle cx='-10' cy='-85' r='3' fill='white'/><circle cx='10' cy='-85' r='3' fill='white'/><rect x='-40' y='-50' width='15' height='60' fill='%2345a049' rx='7'/><rect x='25' y='-50' width='15' height='60' fill='%2345a049' rx='7'/><rect x='-20' y='20' width='15' height='70' fill='%2345a049' rx='7'/><rect x='5' y='20' width='15' height='70' fill='%2345a049' rx='7'/><text x='0' y='130' text-anchor='middle' fill='%23333' font-family='Arial' font-size='18' font-weight='bold'>Protobot</text></g></svg>" alt="Protobot人形机器人" class="article-image">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='400' viewBox='0 0 300 400'><rect width='300' height='400' fill='%23f5f5f5'/><g transform='translate(150,200)'><rect x='-30' y='-60' width='60' height='80' fill='%234CAF50' rx='10'/><rect x='-25' y='-100' width='50' height='50' fill='%2345a049' rx='15'/><circle cx='-10' cy='-85' r='3' fill='white'/><circle cx='10' cy='-85' r='3' fill='white'/><rect x='-40' y='-50' width='15' height='60' fill='%2345a049' rx='7'/><rect x='25' y='-50' width='15' height='60' fill='%2345a049' rx='7'/><rect x='-20' y='20' width='15' height='70' fill='%2345a049' rx='7'/><rect x='5' y='20' width='15' height='70' fill='%2345a049' rx='7'/><text x='0' y='130' text-anchor='middle' fill='%23333' font-family='Arial' font-size='18' font-weight='bold'>AIN</text></g></svg>" alt="AIN人形机器人" class="article-image">
                     
-                    <p>欢迎来到<strong class="highlight">Protobot开源人形机器人项目</strong>！作为深圳源行机器人科技有限公司推出的开源项目，Protobot致力于降低人形机器人的技术门槛，让更多开发者、研究人员和爱好者能够参与到人形机器人的开发中来。</p>
+                    <p>欢迎来到<strong class="highlight">AIN开源人形双足机器人项目</strong>！作为深圳源行机器人科技有限公司推出的开源项目，AIN致力于降低人形机器人的技术门槛，让更多开发者、研究人员和爱好者能够参与到人形机器人的开发中来。</p>
                     
-                    <p>在人工智能和机器人技术快速发展的今天，人形机器人正从科幻走向现实。然而，高昂的成本和技术壁垒让许多人望而却步。Protobot项目的诞生，正是为了打破这种局面。</p>
+                    <p>在人工智能和机器人技术快速发展的今天，人形机器人正从科幻走向现实。然而，高昂的成本和技术壁垒让许多人望而却步。AIN项目的诞生，正是为了打破这种局面。</p>
                     
                     <div class="feature-list">
-                        <h3 style="color: #1a1a2e; margin-bottom: 15px;">🚀 Protobot核心特性</h3>
+                        <h3 style="color: #1a1a2e; margin-bottom: 15px;">🚀 AIN核心特性</h3>
                         <ul>
                             <li><strong>完全开源</strong>：硬件设计、软件代码、控制算法全部开放</li>
-                            <li><strong>模块化设计</strong>：支持快速拆装和功能扩展</li>
-                            <li><strong>成本优化</strong>：采用性价比高的组件，降低制作门槛</li>
+                            <li><strong>成本优化</strong>：基础套件不高于￥9,999（含税），标准组件</li>
                             <li><strong>社区驱动</strong>：活跃的开发者社区，持续改进和创新</li>
                             <li><strong>教育友好</strong>：详细的文档和教程，适合学习和教学</li>
                         </ul>
                     </div>
                     
-                    <h3 style="color: #1a1a2e; margin: 25px 0 15px;">技术架构</h3>
+                    <h3 style="color: #1a1a2e; margin: 25px 0 15px;" id="tech">技术架构</h3>
                     
-                    <p>Protobot采用了现代化的技术架构，确保系统的可扩展性和稳定性：</p>
+                    <p>AIN采用了现代化的技术架构，确保系统的可扩展性和稳定性：</p>
                     
                     <div class="code-block">
-                        <pre>// Protobot 系统架构概览
-const protobotArchitecture = {
+                        <pre>// AIN 系统架构概览
+const AINArchitecture = {
   硬件层: {
-    主控: 'Raspberry Pi 4B / NVIDIA Jetson Nano',
-    驱动: '智能伺服电机 × 18',
-    传感器: ['IMU陀螺仪', '深度相机', '触觉传感器', '超声波传感器'],
-    电源: 'LiPo电池组 + 智能电源管理'
+    驱动:   '智能步进电机 × 10',
+    传感器: 'IMU陀螺仪',
+    电源:   'LiPo电池组',
+    控制：  'Xbox游戏手柄',
+    通讯：  'Wifi7路由器 + can&485=>NET高性能服务器'
   },
   
   软件层: {
-    操作系统: 'Ubuntu 20.04 + ROS2',
-    运动控制: 'MoveIt2 + 自研步态算法',
-    视觉处理: 'OpenCV + YOLO',
-    语音交互: 'ROS2音频节点 + 语音识别API',
-    通信协议: 'DDS/MQTT'
+    操作系统: 'Ubuntu 20.04 ',
+    运动控制: 'GUI操控软件 + Isaac gym步态算法',
+    通信协议: 'Zenoh'
   },
-  
-  AI能力: {
-    视觉识别: '物体检测与跟踪',
-    路径规划: '动态避障算法',
-    行为决策: '基于状态机的行为树',
-    学习能力: '强化学习框架集成'
-  }
 };</pre>
                     </div>
                     
-                    <h3 style="color: #1a1a2e; margin: 25px 0 15px;">开发进展</h3>
+                    <h3 style="color: #1a1a2e; margin: 25px 0 15px;" id="progress">开发进展</h3>
                     
-                    <p>目前，Protobot项目已经取得了令人振奋的进展：</p>
+                    <p>目前，AIN项目已经取得了令人振奋的进展：</p>
                     
                     <ul style="margin: 20px 0; padding-left: 30px;">
-                        <li><strong>V1.0版本</strong>：完成基础硬件设计和步行功能 <span class="tech-badge">已发布</span></li>
-                        <li><strong>V1.5版本</strong>：加入视觉识别和简单交互能力 <span class="tech-badge">测试中</span></li>
+                        <li><strong>V1.0版本</strong>：完成基础硬件设计和基础运动能力 <span class="tech-badge">已发布</span></li>
+                        <li><strong>V1.5版本</strong>：实现自主运动能力 <span class="tech-badge">测试中</span></li>
                         <li><strong>V2.0版本</strong>：计划集成更多AI功能和云端服务 <span class="tech-badge">开发中</span></li>
                     </ul>
                     
-                    <div class="feature-list" style="background: rgba(33, 150, 243, 0.05); border-left-color: #2196F3;">
+                    <div class="feature-list" style="background: rgba(33, 150, 243, 0.05); border-left-color: #2196F3;" id="join">
                         <h3 style="color: #1a1a2e; margin-bottom: 15px;">💡 加入我们</h3>
-                        <p>Protobot是一个开放的项目，我们欢迎各种形式的贡献：</p>
+                        <p>AIN是一个开放的项目，我们欢迎各种形式的贡献：</p>
                         <ul>
                             <li>提交代码改进和新功能</li>
                             <li>完善文档和教程</li>
-                            <li>分享你的Protobot制作经验</li>
+                            <li>分享你的AIN制作经验</li>
                             <li>参与社区讨论和技术交流</li>
                         </ul>
-                        <p style="margin-top: 15px;">项目地址：<strong>github.com/protobot-opensource</strong></p>
+                        <p style="margin-top: 15px;">项目地址：<strong>github.com/LewisXu/AIN</strong></p>
                     </div>
                     
-                    <p>作为项目负责人，我（Lewis）相信，通过开源协作的力量，我们能够让人形机器人技术变得更加普及和实用。Protobot不仅是一个机器人项目，更是一个学习平台、创新工具和技术社区。</p>
+                    <p>作为项目发起人，我相信，通过开源协作的力量，我们能够让人形机器人技术变得更加普及和实用。AIN不仅是一个机器人项目，更是一个学习平台、创新工具和技术社区。</p>
                     
                     <p>让我们一起，用开源的力量推动人形机器人技术的发展，让每个人都能拥有自己的机器人伙伴！</p>
                 </div>
@@ -400,14 +616,30 @@ const protobotArchitecture = {
     </div>
 
     <footer class="footer">
-        <p>&copy; 2024 深圳源行机器人科技有限公司 | <a href="https://github.com/protobot-opensource">GitHub</a> | <a href="mailto:lewis@protobot.com">联系我们</a></p>
-        <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">Protobot - 开源改变未来，让机器人技术触手可及</p>
+        <p>&copy; 2024 深圳源行机器人科技有限公司 | <a href="https://https://github.com/LewisXu/AIN">GitHub</a> | <a href="mailto:lewis@AIN.com">联系我们</a></p>
+        <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">AIN - 开源改变未来，让机器人技术触手可及</p>
     </footer>
 
     <script>
         // 页面加载动画
         window.addEventListener('load', function() {
             document.querySelector('.main-content').classList.add('fade-in');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
         
         // 添加一些交互效果
@@ -422,7 +654,7 @@ const protobotArchitecture = {
             });
         });
         
-        console.log('🤖 Protobot 开源人形机器人技术页面加载完成！');
+        console.log('🤖 AIN 开源人形双足机器人技术页面加载完成！');
         console.log('🚀 欢迎加入我们的开源社区！');
     </script>
 </body>
