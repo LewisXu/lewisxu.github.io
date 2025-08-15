@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protobot - 开源人形机器人</title>
+    <meta name="description" content="Protobot开源人形机器人技术分享 - 深圳源行机器人科技有限公司">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%234CAF50'/><circle cx='9' cy='10' r='2' fill='white'/><circle cx='15' cy='10' r='2' fill='white'/><path d='M8 15 Q12 18 16 15' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f2f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="circuit" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10 0v5m0 5v5m0 5v5M0 10h5m5 0h5m5 0h5" stroke="rgba(76,175,80,0.3)" stroke-width="0.5" fill="none"/><circle cx="10" cy="10" r="1" fill="rgba(76,175,80,0.5)"/></pattern></defs><rect width="100" height="100" fill="url(%23circuit)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .robot-icon {
+            display: inline-block;
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            padding: 40px;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+        
+        .article-header {
+            margin-bottom: 30px;
+        }
+        
+        .article-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .article-content {
+            color: #444;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul {
+            margin: 20px 0;
+            padding-left: 30px;
+            color: #555;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-image {
+            float: right;
+            margin: 0 0 20px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        .code-block {
+            background: #1a1a2e;
+            color: #4CAF50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .code-block::before {
+            content: 'CODE';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 10px;
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .feature-list {
+            background: rgba(76, 175, 80, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .highlight {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .article-title {
+                font-size: 24px;
+            }
+            
+            .article-image {
+                float: none;
+                margin: 20px auto;
+                display: block;
+                max-width: 100%;
+            }
+            
+            .article-meta {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .robot-icon {
+                font-size: 48px;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tech-badge {
+            display: inline-block;
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 0 4px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="robot-icon">🤖</div>
+            <h1 style="font-size: 48px; margin-bottom: 10px; letter-spacing: 2px;">Protobot</h1>
+            <p style="font-size: 20px; opacity: 0.9;">开源人形机器人技术平台</p>
+            <p style="font-size: 16px; opacity: 0.7; margin-top: 10px;">深圳源行机器人科技有限公司</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="main-content fade-in">
+            <article>
+                <div class="article-header">
+                    <h2 class="article-title">Protobot开源人形机器人：让机器人技术触手可及</h2>
+                    <div class="article-meta">
+                        <span>📅 2024年01月15日</span>
+                        <span>👤 Lewis</span>
+                        <span>🏢 深圳源行机器人科技</span>
+                        <span>🔧 技术分享</span>
+                    </div>
+                </div>
+                <div class="article-content">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='400' viewBox='0 0 300 400'><rect width='300' height='400' fill='%23f5f5f5'/><g transform='translate(150,200)'><rect x='-30' y='-60' width='60' height='80' fill='%234CAF50' rx='10'/><rect x='-25' y='-100' width='50' height='50' fill='%2345a049' rx='15'/><circle cx='-10' cy='-85' r='3' fill='white'/><circle cx='10' cy='-85' r='3' fill='white'/><rect x='-40' y='-50' width='15' height='60' fill='%2345a049' rx='7'/><rect x='25' y='-50' width='15' height='60' fill='%2345a049' rx='7'/><rect x='-20' y='20' width='15' height='70' fill='%2345a049' rx='7'/><rect x='5' y='20' width='15' height='70' fill='%2345a049' rx='7'/><text x='0' y='130' text-anchor='middle' fill='%23333' font-family='Arial' font-size='18' font-weight='bold'>Protobot</text></g></svg>" alt="Protobot人形机器人" class="article-image">
+                    
+                    <p>欢迎来到<strong class="highlight">Protobot开源人形机器人项目</strong>！作为深圳源行机器人科技有限公司推出的开源项目，Protobot致力于降低人形机器人的技术门槛，让更多开发者、研究人员和爱好者能够参与到人形机器人的开发中来。</p>
+                    
+                    <p>在人工智能和机器人技术快速发展的今天，人形机器人正从科幻走向现实。然而，高昂的成本和技术壁垒让许多人望而却步。Protobot项目的诞生，正是为了打破这种局面。</p>
+                    
+                    <div class="feature-list">
+                        <h3 style="color: #1a1a2e; margin-bottom: 15px;">🚀 Protobot核心特性</h3>
+                        <ul>
+                            <li><strong>完全开源</strong>：硬件设计、软件代码、控制算法全部开放</li>
+                            <li><strong>模块化设计</strong>：支持快速拆装和功能扩展</li>
+                            <li><strong>成本优化</strong>：采用性价比高的组件，降低制作门槛</li>
+                            <li><strong>社区驱动</strong>：活跃的开发者社区，持续改进和创新</li>
+                            <li><strong>教育友好</strong>：详细的文档和教程，适合学习和教学</li>
+                        </ul>
+                    </div>
+                    
+                    <h3 style="color: #1a1a2e; margin: 25px 0 15px;">技术架构</h3>
+                    
+                    <p>Protobot采用了现代化的技术架构，确保系统的可扩展性和稳定性：</p>
+                    
+                    <div class="code-block">
+                        <pre>// Protobot 系统架构概览
+const protobotArchitecture = {
+  硬件层: {
+    主控: 'Raspberry Pi 4B / NVIDIA Jetson Nano',
+    驱动: '智能伺服电机 × 18',
+    传感器: ['IMU陀螺仪', '深度相机', '触觉传感器', '超声波传感器'],
+    电源: 'LiPo电池组 + 智能电源管理'
+  },
+  
+  软件层: {
+    操作系统: 'Ubuntu 20.04 + ROS2',
+    运动控制: 'MoveIt2 + 自研步态算法',
+    视觉处理: 'OpenCV + YOLO',
+    语音交互: 'ROS2音频节点 + 语音识别API',
+    通信协议: 'DDS/MQTT'
+  },
+  
+  AI能力: {
+    视觉识别: '物体检测与跟踪',
+    路径规划: '动态避障算法',
+    行为决策: '基于状态机的行为树',
+    学习能力: '强化学习框架集成'
+  }
+};</pre>
+                    </div>
+                    
+                    <h3 style="color: #1a1a2e; margin: 25px 0 15px;">开发进展</h3>
+                    
+                    <p>目前，Protobot项目已经取得了令人振奋的进展：</p>
+                    
+                    <ul style="margin: 20px 0; padding-left: 30px;">
+                        <li><strong>V1.0版本</strong>：完成基础硬件设计和步行功能 <span class="tech-badge">已发布</span></li>
+                        <li><strong>V1.5版本</strong>：加入视觉识别和简单交互能力 <span class="tech-badge">测试中</span></li>
+                        <li><strong>V2.0版本</strong>：计划集成更多AI功能和云端服务 <span class="tech-badge">开发中</span></li>
+                    </ul>
+                    
+                    <div class="feature-list" style="background: rgba(33, 150, 243, 0.05); border-left-color: #2196F3;">
+                        <h3 style="color: #1a1a2e; margin-bottom: 15px;">💡 加入我们</h3>
+                        <p>Protobot是一个开放的项目，我们欢迎各种形式的贡献：</p>
+                        <ul>
+                            <li>提交代码改进和新功能</li>
+                            <li>完善文档和教程</li>
+                            <li>分享你的Protobot制作经验</li>
+                            <li>参与社区讨论和技术交流</li>
+                        </ul>
+                        <p style="margin-top: 15px;">项目地址：<strong>github.com/protobot-opensource</strong></p>
+                    </div>
+                    
+                    <p>作为项目负责人，我（Lewis）相信，通过开源协作的力量，我们能够让人形机器人技术变得更加普及和实用。Protobot不仅是一个机器人项目，更是一个学习平台、创新工具和技术社区。</p>
+                    
+                    <p>让我们一起，用开源的力量推动人形机器人技术的发展，让每个人都能拥有自己的机器人伙伴！</p>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 深圳源行机器人科技有限公司 | <a href="https://github.com/protobot-opensource">GitHub</a> | <a href="mailto:lewis@protobot.com">联系我们</a></p>
+        <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">Protobot - 开源改变未来，让机器人技术触手可及</p>
+    </footer>
+
+    <script>
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.querySelector('.main-content').classList.add('fade-in');
+        });
+        
+        // 添加一些交互效果
+        document.querySelectorAll('.tech-badge').forEach(badge => {
+            badge.addEventListener('mouseover', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.transition = 'transform 0.2s';
+            });
+            
+            badge.addEventListener('mouseout', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+        
+        console.log('🤖 Protobot 开源人形机器人技术页面加载完成！');
+        console.log('🚀 欢迎加入我们的开源社区！');
+    </script>
+</body>
+</html>
