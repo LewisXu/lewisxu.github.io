@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIN - 开源人形双足机器人</title>
     <meta name="description" content="AIN开源人形双足机器人技术分享 - 深圳源行机器人科技有限公司">
-    <!-- 方法1: 替换为本地图片文件 -->
-    <!-- <link rel="icon" href="images/favicon.png"> -->
-    <!-- 方法2: 替换为在线图片URL -->
-    <!-- <link rel="icon" href="https://example.com/favicon.ico"> -->
-    <!-- 方法3: 使用data URI (当前方式) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%234CAF50'/><circle cx='9' cy='10' r='2' fill='white'/><circle cx='15' cy='10' r='2' fill='white'/><path d='M8 15 Q12 18 16 15' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+    <link rel="icon" href="https://raw.githubusercontent.com/LewisXu/AIN/refs/heads/main/ICON.jpg">
     <style>
         * {
             margin: 0;
@@ -91,7 +86,7 @@
             justify-content: center;
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            background: url('https://raw.githubusercontent.com/LewisXu/AIN/refs/heads/main/ICON.jpg') center center / cover;
             border-radius: 20px;
             box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
             position: relative;
@@ -100,11 +95,7 @@
         }
         
         .robot-logo::before {
-            content: 'AIN';
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            letter-spacing: 1px;
+            display: none; /* 隐藏原来的文字 */
         }
         
         .robot-logo::after {
@@ -551,14 +542,7 @@
                     </div>
                 </div>
                 <div class="article-content">
-                    <!-- 替换机器人图片的三种方法： -->
-                    <!-- 方法1: 使用本地图片文件 -->
-                    <!-- <img src="images/ain-robot.jpg" alt="AIN人形机器人" class="article-image"> -->
                     
-                    <!-- 方法2: 使用在线图片URL -->
-                    <!-- <img src="https://example.com/robot-image.jpg" alt="AIN人形机器人" class="article-image"> -->
-                    
-                    <!-- 方法3: 使用data URI (当前使用的SVG图片) -->
                     <img src="https://raw.githubusercontent.com/LewisXu/AIN/refs/heads/main/AIN.PNG" alt="AIN人形机器人" class="article-image">
                     
                     <p>欢迎来到<strong class="highlight">AIN开源人形双足机器人项目</strong>！作为深圳源行机器人科技有限公司推出的开源项目，AIN致力于降低人形机器人的技术门槛，让更多开发者、研究人员和爱好者能够参与到人形机器人的开发中来。</p>
