@@ -493,6 +493,19 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
         }
+
+        .join-section-flex {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        @media (max-width: 768px) {
+            .join-section-flex {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -594,21 +607,25 @@ const AINArchitecture = {
                     
                     <div class="feature-list" style="background: rgba(33, 150, 243, 0.05); border-left-color: #2196F3;" id="join">
                         <h3 style="color: #1a1a2e; margin-bottom: 15px;">💡 加入我们</h3>
-                        <p>AIN是一个开放的项目，我们欢迎各种形式的贡献：</p>
-                        <ul>
-                            <li>提交代码改进和新功能</li>
-                            <li>完善文档和教程</li>
-                            <li>分享你的AIN制作经验</li>
-                            <li>参与社区讨论和技术交流</li>
-                        </ul>
-                        <p style="margin-top: 15px;">项目地址：<strong>github.com/LewisXu/AIN</strong></p>
-                        
-                        <div style="margin-top: 30px; text-align: center;">
-                            <p style="margin-bottom: 15px; font-weight: 500; color: #1a1a2e;">扫码加入AIN机器人技术交流群</p>
-                            <img src="https://raw.githubusercontent.com/LewisXu/AIN/refs/heads/main/AIN%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A4%E6%B5%81%E7%BE%A4.jpg" 
-                                 alt="AIN机器人交流群二维码" 
-                                 style="max-width: 200px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); border: 1px solid #e0e0e0;">
-                            <p style="margin-top: 10px; font-size: 14px; color: #666;">与更多开发者一起探讨机器人技术</p>
+                        <div class="join-section-flex">
+                            <div style="flex: 1;">
+                                <p>AIN是一个开放的项目，我们欢迎各种形式的贡献：</p>
+                                <ul>
+                                    <li>提交代码改进和新功能</li>
+                                    <li>完善文档和教程</li>
+                                    <li>分享你的AIN制作经验</li>
+                                    <li>参与社区讨论和技术交流</li>
+                                </ul>
+                                <p style="margin-top: 15px;">项目地址：<strong>github.com/LewisXu/AIN</strong></p>
+                            </div>
+                            
+                            <div style="text-align: center; flex-shrink: 0;">
+                                <p style="margin-bottom: 12px; font-weight: 500; color: #1a1a2e; font-size: 15px;">扫码加入技术交流群</p>
+                                <img src="https://raw.githubusercontent.com/LewisXu/AIN/refs/heads/main/AIN%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A4%E6%B5%81%E7%BE%A4.jpg" 
+                                     alt="AIN机器人交流群二维码" 
+                                     style="width: 180px; height: 180px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); border: 1px solid #e0e0e0;">
+                                <p style="margin-top: 8px; font-size: 13px; color: #666;">与开发者一起探讨</p>
+                            </div>
                         </div>
                     </div>
                     
